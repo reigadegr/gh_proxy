@@ -1,0 +1,16 @@
+[package]
+name = "my_server_handle"
+version.workspace = true
+edition.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+my_config.workspace = true
+salvo.workspace = true
+chrono.workspace = true
+anyhow.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true

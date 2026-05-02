@@ -1,0 +1,72 @@
+[workspace]
+members = ["app", "crates/config", "crates/server_handle"]
+resolver = "3"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+nursery = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+style = { level = "warn", priority = -1 }
+complexity = { level = "warn", priority = -1 }
+perf = { level = "warn", priority = -1 }
+correctness = { level = "warn", priority = -1 }
+suspicious = { level = "warn", priority = -1 }
+unwrap_used = { level = "warn", priority = -1 }
+expect_used = { level = "warn", priority = -1 }
+similar_names = "allow"
+missing_errors_doc = "allow"
+missing_safety_doc = "allow"
+missing_panics_doc = "allow"
+cast_precision_loss = "allow"
+struct_excessive_bools = "allow"
+
+[workspace.dependencies]
+my_config = { path = "crates/config" }
+my_server_handle = { path = "crates/server_handle" }
+salvo = { version = "0.92.2", features = [
+  "timeout",
+  "concurrency-limiter",
+  "http2-cleartext",
+  "logging",
+  "oapi",
+  "rustls",
+  "proxy",
+] }
+serde = { version = "1.0.228", features = ["derive"] }
+chrono = "0.4.44"
+tokio = { version = "1.52.1", features = ["full", "io-uring"] }
+anyhow = "1.0.102"
+mimalloc = { version = "0.1.50", features = ["v2", "no_thp", "override"] }
+toml = { version = "1.1.2", default-features = false, features = [
+  "parse",
+  "serde",
+] }
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = [
+  "local-time",
+  "env-filter",
+] }
+serde_json = "1.0.149"
+obfstr = "0.4.4"
+log = "0.4.29"
+
+[profile.dev]
+debug = true
+debug-assertions = true
+panic = "abort"
+incremental = true
+
+[profile.release]
+overflow-checks = false
+codegen-units = 1
+lto = "thin"
+opt-level = 2
+strip = true
+debug = 0
+debug-assertions = false
+incremental = false
+panic = "abort"

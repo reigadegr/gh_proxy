@@ -1,0 +1,11 @@
+/target
+Cargo.lock
+**/*.bak
+output*
+*txt
+**/*dump.rdb*
+.idea
+*/src/*.sh
+**/*.patch
+**/*.diff
+nohup.out

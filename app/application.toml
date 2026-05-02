@@ -1,0 +1,6 @@
+[client_cfg]
+service_ip = '0.0.0.0'
+service_port = 6789
+
+[database_cfg]
+db_url = 'sqlite://target/jsd.db'
