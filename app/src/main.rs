@@ -4,7 +4,7 @@ use std::{fmt, io::IsTerminal};
 
 use chrono::Local;
 use mimalloc::MiMalloc;
-use my_server_handle::shutdown_handle::shutdown_signal;
+use my_server_handle::shutdown_handle::{init_handle, shutdown_signal};
 use salvo::prelude::*;
 use tracing_subscriber::{
     EnvFilter,
@@ -48,5 +48,12 @@ async fn main() {
         .bind()
         .await;
     tokio::spawn(shutdown_signal());
-    Server::new(acceptor).serve(router).await;
+    let server = Server::new(acceptor);
+
+    if let Err(e) = init_handle(server.handle()) {
+        eprintln!("Failed to initialize server handle: {e}");
+        std::process::exit(1);
+    }
+
+    server.serve(router).await;
 }
