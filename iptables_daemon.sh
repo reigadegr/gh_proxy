@@ -33,7 +33,7 @@ iptables -t nat -C OUTPUT -p tcp --dport 443 -j "$CHAIN_NAME" 2>/dev/null || \
 iptables -t nat -C "$CHAIN_NAME" -p tcp -d 127.0.0.1 --dport 443 -j RETURN 2>/dev/null || \
     iptables -t nat -I "$CHAIN_NAME" 1 -p tcp -d 127.0.0.1 --dport 443 -j RETURN
 # 排除到 lgithub.xyz 的流量（避免代理回环）
-PROXY_UPSTREAM_IPS=$("$DIG" +short ghps.cc A 2>/dev/null | grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$')
+PROXY_UPSTREAM_IPS=$("$DIG" +short lgithub.xyz A 2>/dev/null | grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$')
 for ip in $PROXY_UPSTREAM_IPS; do
     iptables -t nat -C "$CHAIN_NAME" -p tcp -d "$ip" --dport 443 -j RETURN 2>/dev/null || \
         iptables -t nat -I "$CHAIN_NAME" 1 -p tcp -d "$ip" --dport 443 -j RETURN
@@ -64,7 +64,7 @@ while true; do
 
     # 重新添加防回环规则
     iptables -t nat -A "$CHAIN_NAME" -p tcp -d 127.0.0.1 --dport 443 -j RETURN
-    UPSTREAM_IPS=$("$DIG" +short ghps.cc A 2>/dev/null | grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$')
+    UPSTREAM_IPS=$("$DIG" +short lgithub.xyz A 2>/dev/null | grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$')
     for uip in $UPSTREAM_IPS; do
         iptables -t nat -A "$CHAIN_NAME" -p tcp -d "$uip" --dport 443 -j RETURN
     done

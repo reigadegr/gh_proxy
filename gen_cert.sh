@@ -51,7 +51,7 @@ openssl x509 -req -in keys/server.csr -CA keys/ca_cert.pem -CAkey keys/ca_key.pe
     -extfile keys/server.cnf -extensions v3_req
 
 # ========== 3. 清理临时文件 ==========
-rm -f keys/ca.cnf keys/server.cnf keys/server.csr keys/ca_key.pem keys/ca_cert.srl
+rm -f keys/ca.cnf keys/server.cnf keys/server.csr keys/ca_cert.srl
 
 echo "[✓] 生成完成:"
 echo "  keys/ca_cert.pem   -> 放系统信任链（KSU 模块）"
