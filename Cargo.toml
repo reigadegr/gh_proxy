@@ -27,7 +27,7 @@ struct_excessive_bools = "allow"
 [workspace.dependencies]
 my_config = { path = "crates/config" }
 my_server_handle = { path = "crates/server_handle" }
-salvo = { version = "0.92.2", features = [
+salvo = { version = "0.93.0", features = [
   "timeout",
   "concurrency-limiter",
   "http2-cleartext",
@@ -50,8 +50,6 @@ tracing-subscriber = { version = "0.3.23", features = [
   "local-time",
   "env-filter",
 ] }
-serde_json = "1.0.149"
-obfstr = "0.4.4"
 log = "0.4.29"
 
 [profile.dev]

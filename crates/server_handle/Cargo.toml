@@ -7,10 +7,7 @@ edition.workspace = true
 workspace = true
 
 [dependencies]
-my_config.workspace = true
 salvo.workspace = true
-chrono.workspace = true
 anyhow.workspace = true
 tokio.workspace = true
 tracing.workspace = true
-tracing-subscriber.workspace = true

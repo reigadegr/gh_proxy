@@ -8,12 +8,10 @@ workspace = true
 
 [dependencies]
 my_server_handle.workspace = true
-anyhow.workspace = true
 chrono.workspace = true
 salvo.workspace = true
 tokio.workspace = true
 mimalloc.workspace = true
-obfstr.workspace = true
 tracing.workspace = true
 tracing-subscriber.workspace = true
 log.workspace = true

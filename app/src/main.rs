@@ -5,7 +5,6 @@ use std::{fmt, io::IsTerminal};
 use chrono::Local;
 use mimalloc::MiMalloc;
 use my_server_handle::shutdown_handle::shutdown_signal;
-use obfstr::obfbytes;
 use salvo::prelude::*;
 use tracing_subscriber::{
     EnvFilter,
@@ -38,8 +37,8 @@ async fn main() {
         .with_ansi(is_terminal)
         .init();
 
-    let private_key = obfbytes!(include_bytes!("../../keys/private_key.pem"));
-    let public_key = obfbytes!(include_bytes!("../../keys/cert.pem"));
+    let private_key = include_bytes!("../../keys/private_key.pem");
+    let public_key = include_bytes!("../../keys/cert.pem");
 
     let tls_config = init_tls_config(public_key, private_key);
     let router = init_router();
