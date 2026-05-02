@@ -1,5 +1,5 @@
 [package]
-name = "app"
+name = "gh_proxy"
 version.workspace = true
 edition.workspace = true
 
@@ -15,3 +15,8 @@ mimalloc.workspace = true
 tracing.workspace = true
 tracing-subscriber.workspace = true
 log.workspace = true
+hyper = { version = "1", features = ["client"] }
+hyper-util = { version = "0.1", features = ["tokio", "client", "http1"] }
+hyper-rustls = { version = "0.27", features = ["http1", "webpki-roots"] }
+http-body-util = "0.1"
+bytes = "1"

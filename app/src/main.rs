@@ -11,7 +11,7 @@ use tracing_subscriber::{
     fmt::{format::Writer, time::FormatTime},
 };
 
-use crate::router::{init_router, init_tls_config};
+use crate::router::{create_http_client, init_router, init_tls_config};
 
 #[global_allocator]
 static GLOBAL: MiMalloc = MiMalloc;
@@ -41,7 +41,8 @@ async fn main() {
     let public_key = include_bytes!("../../keys/cert.pem");
 
     let tls_config = init_tls_config(public_key, private_key);
-    let router = init_router();
+    let client = create_http_client();
+    let router = init_router(client);
 
     let acceptor = TcpListener::new("0.0.0.0:443")
         .rustls(tls_config)
