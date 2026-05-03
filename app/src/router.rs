@@ -66,9 +66,9 @@ async fn redirect_to_gh_proxy(req: &mut Request, res: &mut Response) {
 }
 
 #[handler]
-async fn proxy_to_lgithub(req: &mut Request, res: &mut Response) {
+async fn direct_to_github(req: &mut Request, res: &mut Response) {
     let client = get_client();
-    let upstream = "https://lgithub.xyz";
+    let upstream = "https://github.com";
 
     let path = req.params().tail().unwrap_or("");
     let query = req
@@ -99,7 +99,7 @@ async fn proxy_to_lgithub(req: &mut Request, res: &mut Response) {
     }
 
     // 设置正确的 Host
-    builder = builder.header("host", "lgithub.xyz");
+    builder = builder.header("host", "github.com");
 
     let proxy_req = match builder.body(Full::new(body_bytes)) {
         Ok(req) => req,
@@ -153,7 +153,7 @@ pub fn init_router(_client: Arc<HttpClient>) -> Router {
             Router::with_path("/{user}/{repo}/releases/download/{**rest}")
                 .goal(redirect_to_gh_proxy),
         )
-        .push(Router::with_path("{**rest}").goal(proxy_to_lgithub))
+        .push(Router::with_path("{**rest}").goal(direct_to_github))
 }
 
 pub fn init_tls_config(public_key: &[u8], private_key: &[u8]) -> RustlsConfig {
